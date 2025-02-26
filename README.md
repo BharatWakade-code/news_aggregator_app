@@ -24,7 +24,7 @@ A Flutter-based news aggregation application that fetches news from the [News AP
 
 1. Clone the repository:
    ```
-
+   https://github.com/BharatWakade-code/news_aggregator_app.git
    
    ```
 2. Navigate to the project directory:
