@@ -3,6 +3,8 @@ class NewsRequest {
   final String? fromDate;
   final String? to;
   final String? sortBy;
+  final String? country;
+  final String? category;
   final String apiKey;
 
   NewsRequest({
@@ -10,6 +12,8 @@ class NewsRequest {
     this.fromDate,
     this.to,
     this.sortBy,
+    this.country,
+    this.category,
     required this.apiKey,
   });
 
@@ -19,6 +23,8 @@ class NewsRequest {
       "from": fromDate ?? '',
       "to": to ?? '',
       "sortBy": sortBy ?? '',
+      "country": country ?? '',
+      "category": category ?? '',
       "apiKey": apiKey,
     };
   }

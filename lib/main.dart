@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_aggregator_app/Screens/category/category_cubit.dart';
+import 'package:news_aggregator_app/Screens/dashboard/dashbaord_screen.dart';
 import 'package:news_aggregator_app/Screens/home/home_cubit.dart';
 import 'package:news_aggregator_app/Screens/home/home_screen.dart';
+import 'package:news_aggregator_app/Screens/search_page/search_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,11 +35,14 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (context) => HomeCubit(),
         ),
+        BlocProvider(
+          create: (context) => SearchCubit(),
+        ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Insta Clone',
-        home: HomeScreen(),
+        home: DashBoardScreen(),
       ),
     );
   }

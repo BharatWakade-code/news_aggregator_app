@@ -3,6 +3,7 @@ import 'package:either_dart/either.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:news_aggregator_app/Screens/home/data/home_screen_repo_impl.dart';
+import 'package:news_aggregator_app/models/NewsHeadLineCategoryResponseModel.dart';
 import 'package:news_aggregator_app/models/news_request_model.dart';
 import 'package:news_aggregator_app/models/news_response_model.dart';
 import 'package:news_aggregator_app/utils/contstants.dart';
@@ -15,27 +16,49 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeRepositoryImpl repository = HomeRepositoryImpl();
 
-  Future<void> getNewsData() async {
+  Future<void> getNewsHeadLineData() async {
     emit(HomeLoading());
     final json = NewsRequest(
       apiKey: Constanst.apiKey,
-      fromDate: "2025-01-26",
-      to: "2025-02-21",
-      query: "india",
+      country: 'us',
       sortBy: 'publishedAt',
     );
 
     Either<Exception, NewsResponseModel> either =
-        await repository.getNewsData(json.toJson());
+        await repository.getNewsHeadLineData(json.toJson());
     either.fold((failuire) => emit(NewsDataError(msg: 'News data fetch error')),
-        (response) => newsResponse(response));
+        (response) => newsHeadLineResponse(response));
   }
 
   List<Articles>? articles = [];
 
-  void newsResponse(NewsResponseModel response) {
+  void newsHeadLineResponse(NewsResponseModel response) {
     if (response.status == "ok") {
       articles = response.articles;
+      emit(NewsDataSuccess(msg: 'News data fetch succesfully'));
+    } else {
+      emit(NewsDataError(msg: 'News data fetch error'));
+    }
+  }
+
+  Future<void> getNewsHeadLineCategoryData(String? catergory) async {
+    emit(HomeLoading());
+    final json = NewsRequest(
+      apiKey: Constanst.apiKey,
+      category: catergory,
+    );
+
+    Either<Exception, NewsHeadLineCategoryResponseModel> either =
+        await repository.getNewsMainCategoryData(json.toJson());
+    either.fold((failuire) => emit(NewsDataError(msg: 'News data fetch error')),
+        (response) => newsMainCategoryResponse(response));
+  }
+
+  List<Sources>? sources = [];
+
+  void newsMainCategoryResponse(NewsHeadLineCategoryResponseModel response) {
+    if (response.status == "ok") {
+      sources = response.sources;
       emit(NewsDataSuccess(msg: 'News data fetch succesfully'));
     } else {
       emit(NewsDataError(msg: 'News data fetch error'));
