@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:news_aggregator_app/Screens/bill_board_controller.dart';
 import 'package:news_aggregator_app/Screens/home/home_screen.dart';
 import 'package:news_aggregator_app/Screens/search_page/search_news.dart';
 
@@ -16,7 +17,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   List<Widget> screens = [
     const HomeScreen(),
     const SearchNewsPage(),
-    const Scaffold(),
+    const ControllerPage(),
   ];
   @override
   Widget build(BuildContext context) {
